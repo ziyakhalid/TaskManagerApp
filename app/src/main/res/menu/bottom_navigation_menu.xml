@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_fragment1"
+        android:title="Home"
+        android:icon="@drawable/round_home_24" />
+    <item
+        android:id="@+id/navigation_fragment2"
+        android:title="Tasks"
+        android:icon="@drawable/round_calendar_month_24" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_fragment3"-->
+<!--        android:title="Notifications"-->
+<!--        android:icon="@drawable/baseline_notifications_none_24" />-->
+    <item
+        android:id="@+id/navigation_fragment4"
+        android:title="Search"
+        android:icon="@drawable/round_search_24" />
+</menu>

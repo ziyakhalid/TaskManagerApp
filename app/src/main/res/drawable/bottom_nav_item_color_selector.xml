@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When the item is pressed -->
+    <item android:state_pressed="true" android:color="#F32758" />
+
+    <!-- When the item is selected but not pressed -->
+    <item android:state_selected="true" android:color="#F32758" />
+
+    <!-- Default state (not selected or pressed) -->
+    <item android:color="#CACACA" />
+</selector>

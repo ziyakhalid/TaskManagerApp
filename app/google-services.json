@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "156026796002",
+    "project_id": "task-manager-pro-jetpack",
+    "storage_bucket": "task-manager-pro-jetpack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156026796002:android:65f4ffb9ebc9a189f2ebbb",
+        "android_client_info": {
+          "package_name": "com.graphit.taskmanagerprojetpack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxi9-mNtkrkNQq69_4KM-o6ZBT-glP3WI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
