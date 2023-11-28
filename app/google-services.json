@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "156026796002",
+    "firebase_url": "https://task-manager-pro-jetpack-default-rtdb.firebaseio.com",
     "project_id": "task-manager-pro-jetpack",
     "storage_bucket": "task-manager-pro-jetpack.appspot.com"
   },
@@ -10,6 +11,25 @@
         "mobilesdk_app_id": "1:156026796002:android:65f4ffb9ebc9a189f2ebbb",
         "android_client_info": {
           "package_name": "com.graphit.taskmanagerprojetpack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxi9-mNtkrkNQq69_4KM-o6ZBT-glP3WI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156026796002:android:a829d77988b45a1ff2ebbb",
+        "android_client_info": {
+          "package_name": "uk.ac.tees.mad.q2252114"
         }
       },
       "oauth_client": [],
