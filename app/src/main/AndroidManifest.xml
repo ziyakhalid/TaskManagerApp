@@ -22,9 +22,24 @@
             android:theme="@style/Theme.LoginAndRegistrationDemoApp" />
 
         <activity
-            android:name="com.graphit.taskmanagerprojetpack.loginsignup.MainActivity"
+            android:name="uk.ac.tees.mad.q2252114.loginsignup.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.LoginAndRegistrationDemoApp"/>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="your.package.name.ACTION_ALARM" />
+            </intent-filter>
+        </receiver>
+
+
+
+        <activity
+            android:name=".CreateTask"
+            android:exported="false" />
         <activity
             android:name=".SplasScreen"
             android:exported="true" >
@@ -35,7 +50,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.graphit.taskmanagerprojetpack.MainActivity"
+            android:name="uk.ac.tees.mad.q2252114.MainActivity"
             android:exported="false" />
     </application>
 

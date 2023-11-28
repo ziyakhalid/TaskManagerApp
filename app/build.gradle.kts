@@ -9,14 +9,14 @@ plugins {
 
 
 android {
-    namespace = "com.graphit.taskmanagerprojetpack"
+    namespace = "uk.ac.tees.mad.q2252114"
     compileSdk = 34
 
     viewBinding { true }
 
 
     defaultConfig {
-        applicationId = "com.graphit.taskmanagerprojetpack"
+        applicationId = "uk.ac.tees.mad.q2252114"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
