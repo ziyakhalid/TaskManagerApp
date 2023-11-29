@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/roun_bg"
+    android:backgroundTint="#90BFC8E8"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_margin="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/group_56"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/linear_task_home_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:text="Design Changes"/>
+        <TextView
+            android:id="@+id/linear_task_home_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:textStyle="normal"
+            android:textColor="@color/light_gray"
+            android:text="october 12,2023"/>
+    </LinearLayout>
+
+</LinearLayout>
