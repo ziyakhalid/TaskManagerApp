@@ -86,19 +86,16 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-
-
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-
-
-
-
 
     implementation ("androidx.room:room-runtime:2.4.0")
     kapt ("androidx.room:room-compiler:2.4.0")
 
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+
+    implementation ("androidx.biometric:biometric:1.2.0-alpha05")
+
 
 }
 

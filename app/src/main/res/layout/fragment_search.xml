@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Search">
+    tools:context="uk.ac.tees.mad.q2252114.Search">
 
     <!-- TODO: Update blank fragment layout -->
 <LinearLayout
@@ -30,7 +30,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/search_here"
+            android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light_blue"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searched_tasks"
+                android:id="@+id/searchResultsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
