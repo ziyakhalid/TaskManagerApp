@@ -3,27 +3,37 @@ package uk.ac.tees.mad.q2252114
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.biometric.BiometricPrompt
 import java.util.*
 
 class SplasScreen : AppCompatActivity() {
 
-//    private lateinit var logo: ImageView
+    private lateinit var fingerprintUtils: FingerprintUtils
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
 
-//        logo = findViewById(R.id.logo)
-//
-//        // Start the animation on the logo
-//        val animation = AnimationUtils.loadAnimation(this, R.anim.splash_logo_animation)
-//        logo.startAnimation(animation)
+        fingerprintUtils = FingerprintUtils(this)
 
-        // Start a timer to finish the splash screen activity after 3 seconds
         val timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
-                startActivity(Intent(this@SplasScreen, MainActivity::class.java))
-                finish()
+
+                if (fingerprintUtils.canAuthenticate()) {
+                    val callback = object : BiometricPrompt.AuthenticationCallback() {
+                        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                            startActivity(Intent(this@SplasScreen, MainActivity::class.java))
+                            finish()
+                        }
+                    }
+
+                    fingerprintUtils.showBiometricPrompt(callback)
+                } else {
+                    Toast.makeText(this@SplasScreen, "invalid fingerprint", Toast.LENGTH_SHORT).show()
+
+                }
             }
         }, 3000)
     }

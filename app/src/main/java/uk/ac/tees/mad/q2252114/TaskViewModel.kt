@@ -1,34 +1,53 @@
 package uk.ac.tees.mad.q2252114
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+
 import androidx.lifecycle.LiveData
-
-class TaskViewModel(application: Application) : AndroidViewModel(application) {
-
-
-
-    private val dbHelper = TaskDbHelper(application.applicationContext)
-
-    private val repository = TaskRepository(dbHelper)
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 
-    val allTasks: LiveData<List<Task>> = repository.getAllTasks()
+class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
+
+    private val _allTasks = MutableLiveData<List<Task>>()
+    val allTasks: LiveData<List<Task>> get() = _allTasks
+
+    private val _searchResults = MutableLiveData<List<Task>>()
+    val searchResults: LiveData<List<Task>> get() = _searchResults
+
+    init {
+        // Initialize the ViewModel by loading all tasks
+        loadAllTasks()
+    }
+
+    fun loadAllTasks() {
+        viewModelScope.launch {
+            // Use repository function to get tasks and observe changes
+            repository.getAllTasks().observeForever { tasks ->
+                _allTasks.value = tasks
+            }
+        }
+    }
 
     fun insert(task: Task) {
-        repository.insert(task)
+        viewModelScope.launch {
+            repository.insert(task)
+        }
     }
 
     fun delete(task: Task) {
-        repository.delete(task)
+        viewModelScope.launch {
+            repository.delete(task)
+        }
     }
-    // Inside TaskViewModel class
-//    fun searchTasks(query: String) {
-//        val searchQuery = if (query.isBlank()) null else query.trim()
-//        allTasks.value = repository.getAllTaskss(searchQuery).value
-//    }
 
-
-//    fun getAllTasks(): Any {
-//
-//    }
+    // Function to search tasks based on the query
+    fun searchTasks(query: String) {
+        val allTasksList = _allTasks.value ?: emptyList()
+        val searchResultsList = allTasksList.filter { task ->
+            task.title.contains(query, ignoreCase = true) ||
+                    task.description?.contains(query, ignoreCase = true) == true
+        }
+        _searchResults.value = searchResultsList
+    }
 }
