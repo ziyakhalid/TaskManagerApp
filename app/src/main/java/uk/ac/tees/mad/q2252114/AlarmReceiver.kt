@@ -17,7 +17,6 @@ class AlarmReceiver : BroadcastReceiver() {
             )
 
             wakeLock.acquire()
-
             // Handle the intent
 
             // Release the wake lock
