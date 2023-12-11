@@ -21,6 +21,16 @@
             android:textAlignment="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/round_perm_identity_24"
+            android:layout_marginEnd="16dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,43 +49,12 @@
                 android:textColor="#B22E3A59"
                 android:text="Have a nice Day" />
         </LinearLayout>
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/button1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="My tasks"
-                    style="?attr/materialIconButtonFilledStyle"
-                    />
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="In Progress"
-                    style="?attr/materialIconButtonFilledStyle"
-                    />
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Completed"
-                    style="?attr/materialIconButtonFilledStyle"
-                    />
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="16dp">
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">

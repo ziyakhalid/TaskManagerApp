@@ -101,7 +101,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/light_blue"
+        android:textColor="#A9B7E8"
         android:textSize="16dp"
         android:layout_marginBottom="8dp"
         android:text="Reminder Time" />
@@ -127,14 +127,14 @@
                 android:layout_height="wrap_content"
                 android:text="Description"
                 android:textSize="16dp"
-                android:textColor="@color/light_blue"/>
+                android:textColor="#A9B7E8"/>
             <EditText
                 android:id="@+id/create_task_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/dark_blue"
+                android:textSize="14dp"
                 android:backgroundTint="@color/dark_blue"
-                android:textSize="20dp"
                 android:hint="hello useryou can type here so type your task description here without hesitation"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -149,15 +149,50 @@
                 android:layout_height="wrap_content"
                 android:text="Tags"
                 android:textSize="16dp"
-                android:textColor="@color/light_blue"/>
+                android:textColor="#A9B7E8"/>
             <EditText
                 android:id="@+id/create_task_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/dark_blue"
+                android:textSize="14dp"
                 android:hint="Type a  Tag from which you want to search later e.g Office"
                 />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="#A9B7E8"
+                android:text="Location"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="4dp"
+    android:gravity="center">
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/loc_text"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="Fetching Location...."/>
+    <ImageButton
+        android:id="@+id/loc_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_my_location_24"
+        android:background="@android:color/transparent"/>
+</LinearLayout>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
