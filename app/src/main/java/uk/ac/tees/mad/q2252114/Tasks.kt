@@ -36,8 +36,10 @@ class Tasks : Fragment() {
         }
 
         // Initialize ViewModel
-        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+        val taskRepository = TaskRepository(TaskDbHelper(requireContext()))
 
+        // Initialize ViewModel
+        taskViewModel = ViewModelProvider(this, TaskViewModelFactory(taskRepository)).get(TaskViewModel::class.java)
         // Initialize RecyclerView
         val recyclerView: RecyclerView = view.findViewById(R.id.tasks_recycler_tasks)
         recyclerView.layoutManager = LinearLayoutManager(activity)
