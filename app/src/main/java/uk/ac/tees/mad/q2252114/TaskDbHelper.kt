@@ -8,7 +8,7 @@ class TaskDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
     companion object {
         const val DATABASE_NAME = "tasks.db"
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2 // Increment version to trigger onUpgrade
     }
 
     // Create the tasks table
@@ -18,7 +18,8 @@ class TaskDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
             ${TaskContract.TaskEntry.COLUMN_TITLE} TEXT NOT NULL,
             ${TaskContract.TaskEntry.COLUMN_DESCRIPTION} TEXT,
             ${TaskContract.TaskEntry.COLUMN_DUE_DATE} INTEGER NOT NULL,
-            ${TaskContract.TaskEntry.COLUMN_COMPLETED} INTEGER DEFAULT 0
+            ${TaskContract.TaskEntry.COLUMN_COMPLETED} INTEGER DEFAULT 0,
+            ${TaskContract.TaskEntry.COLUMN_LOCATION} TEXT 
         )
     """.trimIndent()
 
@@ -30,6 +31,12 @@ class TaskDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        // Handle upgrades from version 1 to version 2, and future versions if needed
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE ${TaskContract.TaskEntry.TABLE_NAME} ADD COLUMN ${TaskContract.TaskEntry.COLUMN_LOCATION} TEXT")
+        }
+
+        // Drop the existing table and recreate it
         db.execSQL(SQL_DELETE_ENTRIES)
         onCreate(db)
     }

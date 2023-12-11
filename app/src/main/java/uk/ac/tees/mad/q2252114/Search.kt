@@ -29,8 +29,10 @@ class Search : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize ViewModel and RecyclerView Adapter
-        taskViewModel = ViewModelProvider(requireActivity()).get(TaskViewModel::class.java)
+        val taskRepository = TaskRepository(TaskDbHelper(requireContext()))
+
+        // Initialize ViewModel
+        taskViewModel = ViewModelProvider(this, TaskViewModelFactory(taskRepository)).get(TaskViewModel::class.java)
         tasksAdapter = TasksAdapter { /* handle item click if needed */ }
         val searchResultsRecyclerView: RecyclerView = view.findViewById(R.id.searchResultsRecyclerView)
         val searchEditText: TextView = view.findViewById(R.id.searchEditText)
