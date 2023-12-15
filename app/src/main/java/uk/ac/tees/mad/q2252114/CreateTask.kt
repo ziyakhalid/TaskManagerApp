@@ -1,7 +1,9 @@
 package uk.ac.tees.mad.q2252114
 
 import android.Manifest
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -20,6 +22,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -68,10 +71,26 @@ class CreateTask : AppCompatActivity() {
             requestLocation()
         }
 
-        // Create a TaskViewModel instance
-        val taskRepository = TaskRepository(TaskDbHelper(this))
-        val taskViewModelFactory = TaskViewModelFactory(taskRepository)
-        taskViewModel = ViewModelProvider(this, taskViewModelFactory).get(TaskViewModel::class.java)
+// Create a TaskViewModel instance
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+            val taskRepository = TaskRepository(TaskDbHelper(this, uid), uid)
+            val taskViewModelFactory = TaskViewModelFactory(taskRepository)
+            taskViewModel = ViewModelProvider(this, taskViewModelFactory).get(TaskViewModel::class.java)
+
+//            val uid = currentUser.uid ?: ""
+//            val taskRepository = TaskRepository(TaskDbHelper(this, uid),uid)
+//            val taskViewModelFactory = TaskViewModelFactory(taskRepository)
+//            taskViewModel = ViewModelProvider(this, taskViewModelFactory).get(TaskViewModel::class.java)
+        } else {
+            // Handle the case when the user is not authenticated
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
+            finish() // Optionally, close the activity or redirect to a login screen
+        }
+
 
         // Handle "Create Task" button click
         val createTaskButton = findViewById<Button>(R.id.create_task_button)
@@ -120,6 +139,8 @@ class CreateTask : AppCompatActivity() {
         val dateTime = format.parse(dateTimeString)
         return dateTime?.time ?: 0
     }
+
+    // Function to schedule the alarm using AlarmManager
 
 
     // Function to show the date picker dialog

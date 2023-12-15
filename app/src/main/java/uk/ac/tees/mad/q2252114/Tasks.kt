@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -34,12 +35,11 @@ class Tasks : Fragment() {
             val intent = Intent(activity, CreateTask::class.java)
             startActivity(intent)
         }
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        val taskRepository = TaskRepository(TaskDbHelper(requireContext(), uid), uid)
+        val taskViewModelFactory = TaskViewModelFactory(taskRepository)
+        taskViewModel = ViewModelProvider(this, taskViewModelFactory).get(TaskViewModel::class.java)
 
-        // Initialize ViewModel
-        val taskRepository = TaskRepository(TaskDbHelper(requireContext()))
-
-        // Initialize ViewModel
-        taskViewModel = ViewModelProvider(this, TaskViewModelFactory(taskRepository)).get(TaskViewModel::class.java)
         // Initialize RecyclerView
         val recyclerView: RecyclerView = view.findViewById(R.id.tasks_recycler_tasks)
         recyclerView.layoutManager = LinearLayoutManager(activity)

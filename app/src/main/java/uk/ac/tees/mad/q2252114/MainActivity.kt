@@ -47,13 +47,6 @@ class MainActivity : AppCompatActivity() {
                     fragmentTransaction.commit()
                 }
 
-//                R.id.navigation_fragment3 -> {
-//                    val fragmentTransaction = fragmentManager.beginTransaction()
-//                    fragmentTransaction.replace(R.id.fragment_container, notifications)
-//                    fragmentTransaction.addToBackStack(null)
-//                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                    fragmentTransaction.commit()
-//                }
 
                 R.id.navigation_fragment4 -> {
                     val fragmentTransaction = fragmentManager.beginTransaction()

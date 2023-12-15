@@ -51,7 +51,6 @@ import uk.ac.tees.mad.q2252114.loginsignup.ui.theme.c8
 import uk.ac.tees.mad.q2252114.loginsignup.ui.theme.c9
 
 class SignUpActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -102,9 +101,8 @@ fun SignUpContent(auth: FirebaseAuth = remember { FirebaseAuth.getInstance() }) 
                         auth.createUserWithEmailAndPassword(usr, psw)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    val intent = Intent(mContext, MainActivity::class.java)
-                                    mContext.startActivity(intent)
                                     println("Signup Success!")
+                                    mContext.startActivity(Intent(mContext, MainActivity::class.java))
                                     scope.launch {
                                         snackbarHostState.showSnackbar("Signup Success!")
                                     }
