@@ -12,5 +12,7 @@ object TaskContract {
         const val COLUMN_DUE_DATE = "dueDate"
         const val COLUMN_COMPLETED = "completed"
         const val COLUMN_LOCATION= "location"
+        const val COLUMN_UID = "uid"
+
     }
 }

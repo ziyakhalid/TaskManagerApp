@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 
 
 class Search : Fragment() {
@@ -29,10 +30,11 @@ class Search : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val taskRepository = TaskRepository(TaskDbHelper(requireContext()))
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        val taskRepository = TaskRepository(TaskDbHelper(requireContext(), uid), uid)
+        val taskViewModelFactory = TaskViewModelFactory(taskRepository)
+        taskViewModel = ViewModelProvider(this, taskViewModelFactory).get(TaskViewModel::class.java)
 
-        // Initialize ViewModel
-        taskViewModel = ViewModelProvider(this, TaskViewModelFactory(taskRepository)).get(TaskViewModel::class.java)
         tasksAdapter = TasksAdapter { /* handle item click if needed */ }
         val searchResultsRecyclerView: RecyclerView = view.findViewById(R.id.searchResultsRecyclerView)
         val searchEditText: TextView = view.findViewById(R.id.searchEditText)

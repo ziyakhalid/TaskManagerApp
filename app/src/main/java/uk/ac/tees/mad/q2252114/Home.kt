@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -55,8 +56,13 @@ class Home : Fragment() {
             checkAndRequestPermissions()
         }
 
-        val taskRepository = TaskRepository(TaskDbHelper(requireContext()))
-        taskViewModel = ViewModelProvider(this, TaskViewModelFactory(taskRepository)).get(TaskViewModel::class.java)
+
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        val taskRepository = TaskRepository(TaskDbHelper(requireContext(), uid), uid)
+        val taskViewModelFactory = TaskViewModelFactory(taskRepository)
+        taskViewModel = ViewModelProvider(this, taskViewModelFactory).get(TaskViewModel::class.java)
+
+
 
         val inProgressRecyclerView: RecyclerView = view.findViewById(R.id.progres_task_vertical)
         inProgressRecyclerView.layoutManager =
@@ -234,12 +240,14 @@ class Home : Fragment() {
         val databaseReference = firebaseDatabase.reference.child("users").child(currentUser.uid)
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val profileImageUrl = snapshot.child("profileImageUrl").getValue(String::class.java)
-                if (!profileImageUrl.isNullOrEmpty()) {
-                    // If profile image URL is available, load it into the ImageView
-                    Glide.with(requireContext())
-                        .load(profileImageUrl)
-                        .into(imageView)
+                if (snapshot.exists()) {
+                    val profileImageUrl = snapshot.child("profileImageUrl").getValue(String::class.java)
+                    if (!profileImageUrl.isNullOrEmpty()) {
+                        // If profile image URL is available, load it into the ImageView
+                        Glide.with(requireContext())
+                            .load(profileImageUrl)
+                            .into(imageView)
+                    }
                 }
             }
 

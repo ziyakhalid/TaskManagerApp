@@ -1,11 +1,11 @@
 package uk.ac.tees.mad.q2252114
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-
 
 class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
 
@@ -49,5 +49,12 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
                     task.description?.contains(query, ignoreCase = true) == true
         }
         _searchResults.value = searchResultsList
+    }
+
+    companion object {
+        fun getInstance(context: Context, uid: String): TaskViewModel {
+            val repository = TaskRepository.getInstance(context, uid)
+            return TaskViewModel(repository)
+        }
     }
 }

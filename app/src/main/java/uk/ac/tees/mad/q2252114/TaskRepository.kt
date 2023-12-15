@@ -1,12 +1,14 @@
 package uk.ac.tees.mad.q2252114
 
 import android.content.ContentValues
+import android.content.Context
 import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-class TaskRepository(private val dbHelper: TaskDbHelper) {
+class TaskRepository(private val dbHelper: TaskDbHelper, private val uid: String) {
 
     fun getAllTasks(): LiveData<List<Task>> {
         val tasksLiveData = MutableLiveData<List<Task>>()
@@ -18,14 +20,17 @@ class TaskRepository(private val dbHelper: TaskDbHelper) {
             TaskContract.TaskEntry.COLUMN_DESCRIPTION,
             TaskContract.TaskEntry.COLUMN_DUE_DATE,
             TaskContract.TaskEntry.COLUMN_COMPLETED,
-            TaskContract.TaskEntry.COLUMN_LOCATION // Include location column in projection
+            TaskContract.TaskEntry.COLUMN_LOCATION
         )
+
+        val selection = "${TaskContract.TaskEntry.COLUMN_UID} = ?"
+        val selectionArgs = arrayOf(uid)
 
         val cursor = db.query(
             TaskContract.TaskEntry.TABLE_NAME,
             projection,
-            null,
-            null,
+            selection,
+            selectionArgs,
             null,
             null,
             "${TaskContract.TaskEntry.COLUMN_DUE_DATE} ASC"
@@ -58,6 +63,7 @@ class TaskRepository(private val dbHelper: TaskDbHelper) {
             put(TaskContract.TaskEntry.COLUMN_DUE_DATE, task.dueDate)
             put(TaskContract.TaskEntry.COLUMN_COMPLETED, if (task.isCompleted) 1 else 0)
             put(TaskContract.TaskEntry.COLUMN_LOCATION, task.location) // Insert location
+            put(TaskContract.TaskEntry.COLUMN_UID, uid)
         }
 
         db.insert(TaskContract.TaskEntry.TABLE_NAME, null, values)
@@ -66,9 +72,17 @@ class TaskRepository(private val dbHelper: TaskDbHelper) {
 
     fun delete(task: Task) {
         val db = dbHelper.writableDatabase
-        val selection = "${TaskContract.TaskEntry.COLUMN_ID} = ?"
-        val selectionArgs = arrayOf(task.id.toString())
+        val selection = "${TaskContract.TaskEntry.COLUMN_ID} = ? AND ${TaskContract.TaskEntry.COLUMN_UID} = ?"
+        val selectionArgs = arrayOf(task.id.toString(), uid)
 
         db.delete(TaskContract.TaskEntry.TABLE_NAME, selection, selectionArgs)
+    }
+
+    companion object {
+        fun getInstance(context: Context, uid: String): TaskRepository {
+
+            val dbHelper = TaskDbHelper(context,uid)
+            return TaskRepository(dbHelper, uid)
+        }
     }
 }
